@@ -29,7 +29,8 @@ describe("NfeController", () => {
     NfeService.mockClear();
   });
 
-  test("POST /nfe/emissao deve emitir uma nota fiscal", async () => {
+  test("POST /nfe/emissao ", async () => {
+    it("deve emitir uma nota fiscal");
     const mockData = { status: "sucesso" };
     NfeService.prototype.emitirNotaFiscal.mockResolvedValue(mockData);
 

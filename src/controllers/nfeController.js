@@ -174,6 +174,10 @@ class NfeController {
    *                   type: string
    */
   async consultarNotaFiscal(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     try {
       const { chave } = req.params;
       const resultado = await nfeService.consultarNotaFiscal(chave);
@@ -223,6 +227,10 @@ class NfeController {
    *                   type: string
    */
   async cancelarNotaFiscal(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     try {
       const { chave } = req.params;
       const { motivo } = req.body;

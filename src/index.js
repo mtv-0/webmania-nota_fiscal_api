@@ -2,7 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const NfeController = require("./controllers/nfeController");
 const { swaggerUi, swaggerDocs } = require("./swaggerConfig");
-const { emitirNotaFiscalValidator } = require("./validator/nfeValidator");
+const {
+  emitirNotaFiscalValidator,
+  consultarNotaFiscalValidator,
+  cancelarNotaFiscalValidator,
+} = require("./validator/nfeValidator");
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
@@ -16,10 +20,12 @@ const nfeController = new NfeController();
 app.post("/nfe/emissao", emitirNotaFiscalValidator, (req, res, next) =>
   nfeController.emitirNotaFiscal(req, res, next)
 );
-app.get("/nfe/consulta/:chave", (req, res, next) =>
-  nfeController.consultarNotaFiscal(req, res, next)
+app.get(
+  "/nfe/consulta/:chave",
+  consultarNotaFiscalValidator,
+  (req, res, next) => nfeController.consultarNotaFiscal(req, res, next)
 );
-app.put("/nfe/cancelar/:chave", (req, res, next) =>
+app.put("/nfe/cancelar/:chave", cancelarNotaFiscalValidator, (req, res, next) =>
   nfeController.cancelarNotaFiscal(req, res, next)
 );
 app.get("/nfe/certificado", (req, res, next) =>

@@ -8,7 +8,7 @@ class NfeService {
       auth: {},
       headers: {
         "Content-Type": "application/json",
-        "Consumer-Key": credentials.consumer_key,
+        "X-Consumer-Key": credentials.consumer_key,
         "X-Consumer-Secret": credentials.consumer_secret,
         "X-Access-Token": credentials.access_token,
         "X-Access-Token-Secret": credentials.access_token_secret,

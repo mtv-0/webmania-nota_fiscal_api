@@ -100,13 +100,13 @@ const emitirNotaFiscalValidator = [
 
 const consultarNotaFiscalValidator = [
   param("chave")
-    .isLength({ min: 44, max: 44 })
+    .isLength({ min: 20, max: 44 })
     .withMessage("Chave de nota fiscal inválida"),
 ];
 
 const cancelarNotaFiscalValidator = [
   param("chave")
-    .isLength({ min: 44, max: 44 })
+    .isLength({ min: 20, max: 44 })
     .withMessage("Chave de nota fiscal inválida"),
   body("motivo").notEmpty().withMessage("Motivo é obrigatório"),
 ];
