@@ -8,9 +8,6 @@ function errorHandler(err, req, res, next) {
   // Formate o erro
   const formattedError = formatErrorResponse(err.message, err.detail);
 
-  // Registre o erro (opcional)
-  console.error("Error caught by global handler:", formattedError);
-
   // Envia a resposta de erro
   res.status(err.status || 500).json(formattedError);
 }
