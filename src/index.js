@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const NfeController = require("./controllers/nfeController");
-const { swaggerUi, swaggerDocs } = require("./swaggerConfig");
+const { swaggerUi, swaggerDocs } = require("./swagger/swaggerConfig");
 const {
   emitirNotaFiscalValidator,
   consultarNotaFiscalValidator,
