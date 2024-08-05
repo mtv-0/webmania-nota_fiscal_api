@@ -8,7 +8,7 @@ const {
   cancelarNotaFiscalValidator,
 } = require("./validator/nfeValidator");
 const errorHandler = require("./middleware/errorHandler");
-const handleValidationErrors = require("./validator/handleValidationErrors");
+const handleValidationErrors = require("./validator/validatorDefaultHandler");
 
 const app = express();
 

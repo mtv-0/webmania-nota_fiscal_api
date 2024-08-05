@@ -2,6 +2,13 @@
 
 Este projeto é uma aplicação Node.js que interage com a API de Nota Fiscal da WebmaniaBR, permitindo a emissão, consulta e cancelamento de notas fiscais. A aplicação utiliza mongoDB para armazenar as notas fiscais e `express-validator` para validações de entrada.
 
+## Link do vídeo de apresentação da API
+
+```
+https://youtu.be/5Z7l-ML1TAs - Com áudio
+https://youtu.be/NUy-vHT3J8E - Demonstração de funcionamento no pc principal (Sem áudio)
+```
+
 ## Tecnologias Utilizadas
 
 - **Node.js**: Plataforma de desenvolvimento back-end baseada em JavaScript, escolhida por sua eficiência e grande suporte da comunidade.
