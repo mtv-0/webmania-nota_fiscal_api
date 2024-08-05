@@ -1,16 +1,10 @@
-const { validationResult } = require("express-validator");
 const NfeService = require("../services/nfeService");
 const nfeService = new NfeService();
 const logger = require("../utils/logger");
-const { connectToCluster } = require("../config/mongoDb");
 const NfeDatabaseController = require("../db_services/nfe");
 
 class NfeController {
   async emitirNotaFiscal(req, res, next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
       const dados = req.body;
       const resultado = await nfeService.emitirNotaFiscal(dados);
@@ -29,10 +23,6 @@ class NfeController {
   }
 
   async consultarNotaFiscal(req, res, next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
       const { chave } = req.params;
       const resultado = await nfeService.consultarNotaFiscal(chave);
@@ -43,10 +33,6 @@ class NfeController {
   }
 
   async cancelarNotaFiscal(req, res, next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
       const { chave } = req.params;
       const { motivo } = req.body;

@@ -8,6 +8,7 @@ const {
   cancelarNotaFiscalValidator,
 } = require("./validator/nfeValidator");
 const errorHandler = require("./middleware/errorHandler");
+const handleValidationErrors = require("./validator/handleValidationErrors");
 
 const app = express();
 
@@ -17,16 +18,23 @@ app.use(express.urlencoded({ extended: true }));
 
 const nfeController = new NfeController();
 
-app.post("/nfe/emissao", emitirNotaFiscalValidator, (req, res, next) =>
-  nfeController.emitirNotaFiscal(req, res, next)
+app.post(
+  "/nfe/emissao",
+  emitirNotaFiscalValidator,
+  handleValidationErrors,
+  (req, res, next) => nfeController.emitirNotaFiscal(req, res, next)
 );
 app.get(
   "/nfe/consulta/:chave",
   consultarNotaFiscalValidator,
+  handleValidationErrors,
   (req, res, next) => nfeController.consultarNotaFiscal(req, res, next)
 );
-app.put("/nfe/cancelar/:chave", cancelarNotaFiscalValidator, (req, res, next) =>
-  nfeController.cancelarNotaFiscal(req, res, next)
+app.put(
+  "/nfe/cancelar/:chave",
+  cancelarNotaFiscalValidator,
+  handleValidationErrors,
+  (req, res, next) => nfeController.cancelarNotaFiscal(req, res, next)
 );
 app.get("/nfe/certificado", (req, res, next) =>
   nfeController.validadeCertificado(req, res, next)

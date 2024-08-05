@@ -43,7 +43,7 @@ test/
 ### Pré-requisitos
 
 - Node.js (v12 ou superior)
-- MOngoDB (v6.0 ou superior)
+- MongoDB (v6.0 ou superior)
 
 ### Passos para Configuração
 
@@ -60,33 +60,32 @@ test/
    npm install
    ```
 
-3. Execute as migrações do banco de dados:
-
-   ```sh
-   npx sequelize-cli db:migrate
-   ```
-
-4. Configure as credenciais da API WebmaniaBR em `src/config/apiConfig.js`:
+3. Configure as credenciais da API WebmaniaBR e do mongoDB em `src/config/apiConfig.js`:
 
    ```javascript
    module.exports = {
-     baseURL: "https://webmaniabr.com/api/1/nfe/emissao/",
+     baseURL: "https://webmaniabr.com/api/1/nfe/",
      credentials: {
-       consumer_key: "YOUR_CONSUMER_KEY",
-       consumer_secret: "YOUR_CONSUMER_SECRET",
-       access_token: "YOUR_ACCESS_TOKEN",
-       access_token_secret: "YOUR_ACCESS_TOKEN_SECRET",
+       consumer_key: process.env.Consumer_Key,
+       consumer_secret: process.env.Consumer_Secret,
+       access_token: process.env.Access_Token,
+       access_token_secret: process.env.Access_Token_Secret,
+       classe_imposto: process.env.Class_imposto,
+       url_callback: process.env.Url_callback,
+
+       mongo_db_user: process.env.Mongo_db_user,
+       mongo_db_password: process.env.Mongo_db_password,
      },
    };
    ```
 
-5. Inicie o servidor:
+4. Inicie o servidor:
 
    ```sh
    npm start
    ```
 
-6. Para executar os testes, utilize o comando:
+5. Para executar os testes, utilize o comando:
 
    ```sh
    npm test
