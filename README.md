@@ -1,6 +1,6 @@
 # Sistema de Integração com API de Nota Fiscal da WebmaniaBR
 
-Este projeto é uma aplicação Node.js que interage com a API de Nota Fiscal da WebmaniaBR, permitindo a emissão, consulta e cancelamento de notas fiscais. A aplicação utiliza PostgreSQL para armazenar as notas fiscais e `express-validator` para validações de entrada.
+Este projeto é uma aplicação Node.js que interage com a API de Nota Fiscal da WebmaniaBR, permitindo a emissão, consulta e cancelamento de notas fiscais. A aplicação utiliza mongoDB para armazenar as notas fiscais e `express-validator` para validações de entrada.
 
 ## Tecnologias Utilizadas
 
@@ -78,14 +78,14 @@ test/
    npm start
    ```
 
+6. Para executar os testes, utilize o comando:
+
+   ```sh
+   npm test
+   ```
+
 ## Acesse a documentação da API no Swagger:
 
 ```
 http://localhost:3000/api-docs
 ```
-
-8. Para executar os testes, utilize o comando:
-
-   ```
-   npm test
-   ```

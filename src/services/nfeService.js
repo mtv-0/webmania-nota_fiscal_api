@@ -8,7 +8,7 @@ class NfeService {
       auth: {},
       headers: {
         "Content-Type": "application/json",
-        "X-Consumer-Key": credentials.consumer_key,
+        "Consumer-Key": credentials.consumer_key,
         "X-Consumer-Secret": credentials.consumer_secret,
         "X-Access-Token": credentials.access_token,
         "X-Access-Token-Secret": credentials.access_token_secret,
@@ -25,18 +25,15 @@ class NfeService {
         url_notificacao: credentials.url_callback,
       };
     } catch (error) {
-      console.log(error);
       throw new Error(error.response ? error.response.data : error.message);
     }
   }
 
   async consultarNotaFiscal(chave) {
     try {
-      console.log(chave);
       const response = await this.api.get(`consulta/`, { chave });
       return response.data;
     } catch (error) {
-      console.log(error);
       throw new Error(error.message);
     }
   }
@@ -55,7 +52,6 @@ class NfeService {
       const response = await this.api.get("certificado");
       return response.data;
     } catch (error) {
-      console.log(error);
       throw new Error(error.message.data);
     }
   }
