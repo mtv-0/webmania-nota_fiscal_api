@@ -8,5 +8,6 @@ module.exports = {
     access_token: process.env.Access_Token,
     access_token_secret: process.env.Access_Token_Secret,
     classe_imposto: process.env.Class_imposto,
+    url_callback: process.env.Url_callback,
   },
 };

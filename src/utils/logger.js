@@ -1,6 +1,12 @@
 const { createLogger, format, transports } = require("winston");
 
 const logger = createLogger({
+  info: (message, data) => {
+    console.log(`${message} - ${JSON.stringify(data, null, 2)}`);
+  },
+  error: (message, data) => {
+    console.error(`${message} - ${JSON.stringify(data, null, 2)}`);
+  },
   level: "info",
   format: format.combine(
     format.timestamp({

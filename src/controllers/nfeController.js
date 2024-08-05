@@ -1,5 +1,8 @@
+const { validationResult } = require("express-validator");
 const NfeService = require("../services/nfeService");
 const nfeService = new NfeService();
+const logger = require("../utils/logger");
+const errorHandler = require("../utils/errorHandler");
 
 class NfeController {
   /**
@@ -124,12 +127,24 @@ class NfeController {
    *                   type: string
    */
   async emitirNotaFiscal(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     try {
       const dados = req.body;
       const resultado = await nfeService.emitirNotaFiscal(dados);
+      logger.info("Emissão de nota fiscal realizada com sucesso", {
+        dados,
+        resultado,
+      });
       res.json(resultado);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      const formatedError = errorHandler(
+        "Erro ao emitir nota fiscal",
+        error.message
+      );
+      res.status(500).json(formatedError);
     }
   }
 
@@ -169,7 +184,11 @@ class NfeController {
       const resultado = await nfeService.consultarNotaFiscal(chave);
       res.json(resultado);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      const formatedError = errorHandler(
+        "Erro ao consultar nota fiscal",
+        error.message
+      );
+      res.status(500).json(formatedError);
     }
   }
 
@@ -219,7 +238,11 @@ class NfeController {
       const resultado = await nfeService.cancelarNotaFiscal(chave, motivo);
       res.json(resultado);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      const formatedError = errorHandler(
+        "Erro ao cancelar nota fiscal",
+        error.message
+      );
+      res.status(500).json(formatedError);
     }
   }
 
@@ -251,7 +274,11 @@ class NfeController {
       const resultado = await nfeService.validadeCertificado();
       res.json(resultado);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      const formatedError = errorHandler(
+        "Erro ao verificar validade de certificado",
+        error.message
+      );
+      res.status(500).json(formatedError);
     }
   }
 
@@ -282,6 +309,19 @@ class NfeController {
     try {
       const resultado = await nfeService.statusSefaz();
       res.json(resultado);
+    } catch (error) {
+      const formatedError = errorHandler(
+        "Erro ao verificar status sefaz",
+        error.message
+      );
+      res.status(500).json(formatedError);
+    }
+  }
+
+  async callbackNfe(req, res) {
+    try {
+      const callback = request.body();
+      console.log("Callback recebido: ", callback);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

@@ -5,44 +5,48 @@ class NfeService {
   constructor() {
     this.api = axios.create({
       baseURL,
-      auth: {
-        username: credentials.consumer_key,
-        password: credentials.consumer_secret,
-      },
+      auth: {},
       headers: {
         "Content-Type": "application/json",
+        "X-Consumer-Key": credentials.consumer_key,
+        "X-Consumer-Secret": credentials.consumer_secret,
+        "X-Access-Token": credentials.access_token,
+        "X-Access-Token-Secret": credentials.access_token_secret,
       },
     });
   }
 
   async emitirNotaFiscal(dados) {
     try {
-      const response = await this.api.post("", dados);
-      return response.data;
+      const response = await this.api.post("emissao/", dados);
+
+      return {
+        ...response.data,
+        url_notificacao: credentials.url_callback,
+      };
     } catch (error) {
-      throw new Error(
-        `Erro ao emitir nota fiscal: ${
-          error.response ? error.response.data : error.message
-        }`
-      );
+      console.log(error);
+      throw new Error(error.response ? error.response.data : error.message);
     }
   }
 
   async consultarNotaFiscal(chave) {
     try {
-      const response = await this.api.get(`consulta/${chave}`);
+      console.log(chave);
+      const response = await this.api.get(`consulta/`, { chave });
       return response.data;
     } catch (error) {
-      throw new Error(`Erro ao consultar nota fiscal: ${error.message}`);
+      console.log(error);
+      throw new Error(error.message);
     }
   }
 
   async cancelarNotaFiscal(chave, motivo) {
     try {
-      const response = await this.api.put(`cancelar/${chave}`, { motivo });
+      const response = await this.api.put(`cancelar/`, { chave, motivo });
       return response.data;
     } catch (error) {
-      throw new Error(`Erro ao cancelar nota fiscal: ${error.message}`);
+      throw new Error(error.message);
     }
   }
 
@@ -51,19 +55,25 @@ class NfeService {
       const response = await this.api.get("certificado");
       return response.data;
     } catch (error) {
-      throw new Error(
-        `Erro ao verificar validade do certificado: ${error.message}`
-      );
+      console.log(error);
+      throw new Error(error.message.data);
     }
   }
 
   async statusSefaz() {
     try {
-      const response = await this.api.get("status");
+      const response = await this.api.get("sefaz");
       return response.data;
     } catch (error) {
-      throw new Error(`Erro ao verificar status da Sefaz: ${error.message}`);
+      throw new Error(error.message);
     }
+  }
+
+  async impostos() {
+    try {
+      const response = await this.api.get("classe-imposto");
+      return response.data;
+    } catch (e) {}
   }
 }
 

@@ -2,13 +2,17 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const NfeController = require("./controllers/nfeController");
 const { swaggerUi, swaggerDocs } = require("./swaggerConfig");
+const { emitirNotaFiscalValidator } = require("./validator/nfeValidator");
 
 const app = express();
-app.use(bodyParser.json());
+
+//app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const nfeController = new NfeController();
 
-app.post("/nfe/emissao", (req, res) =>
+app.post("/nfe/emissao", emitirNotaFiscalValidator, (req, res) =>
   nfeController.emitirNotaFiscal(req, res)
 );
 app.get("/nfe/consulta/:chave", (req, res) =>
