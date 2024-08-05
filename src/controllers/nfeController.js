@@ -113,8 +113,101 @@ class NfeController {
    *             schema:
    *               type: object
    *               properties:
+   *                 uuid:
+   *                   type: string
+   *                   example: "2b471595-ee30-469d-81c2-087978003dac"
    *                 status:
    *                   type: string
+   *                   example: "reprovado"
+   *                 motivo:
+   *                   type: string
+   *                   example: "Rejeicao: CNPJ Emitente nao cadastrado"
+   *                 nfe:
+   *                   type: string
+   *                   example: "1"
+   *                 serie:
+   *                   type: string
+   *                   example: "2"
+   *                 chave:
+   *                   type: string
+   *                   example: "43240830902296000105550020000000011100059922"
+   *                 modelo:
+   *                   type: string
+   *                   example: "nfe"
+   *                 epec:
+   *                   type: boolean
+   *                   example: false
+   *                 xml:
+   *                   type: string
+   *                   example: "https://nfeautomatica.com.br/xmlnfe/43240830902296000105550020000000011100059922/"
+   *                 danfe:
+   *                   type: string
+   *                   example: "https://nfeautomatica.com.br/danfe/43240830902296000105550020000000011100059922/"
+   *                 danfe_simples:
+   *                   type: string
+   *                   example: "https://nfeautomatica.com.br/danfe/simples/43240830902296000105550020000000011100059922/"
+   *                 danfe_etiqueta:
+   *                   type: string
+   *                   example: "https://nfeautomatica.com.br/danfe/etiqueta/43240830902296000105550020000000011100059922/"
+   *                 log:
+   *                   type: object
+   *                   properties:
+   *                     bStat:
+   *                       type: boolean
+   *                       example: true
+   *                     versao:
+   *                       type: string
+   *                       example: "4.00"
+   *                     tpAmb:
+   *                       type: string
+   *                       example: "1"
+   *                     verAplic:
+   *                       type: string
+   *                       example: "RS2405142121DR"
+   *                     cStat:
+   *                       type: string
+   *                       example: "104"
+   *                     xMotivo:
+   *                       type: string
+   *                       example: "Lote processado"
+   *                     cUF:
+   *                       type: string
+   *                       example: "43"
+   *                     dhRecbto:
+   *                       type: string
+   *                       example: "2024-08-05T13:27:30-03:00"
+   *                     tMed:
+   *                       type: string
+   *                       example: ""
+   *                     nRec:
+   *                       type: string
+   *                       example: ""
+   *                     aProt:
+   *                       type: array
+   *                       items:
+   *                         type: object
+   *                         properties:
+   *                           chNFe:
+   *                             type: string
+   *                             example: "43240830902296000105550020000000011100059922"
+   *                           dhRecbto:
+   *                             type: string
+   *                             example: "2024-08-05T13:27:30-03:00"
+   *                           nProt:
+   *                             type: string
+   *                             example: ""
+   *                           digVal:
+   *                             type: string
+   *                             example: "qUeNNit1AqMRW14WKEr6koSwDl0="
+   *                           cStat:
+   *                             type: string
+   *                             example: "245"
+   *                           xMotivo:
+   *                             type: string
+   *                             example: "Rejeicao: CNPJ Emitente nao cadastrado"
+   *                 url_notificacao:
+   *                   type: string
+   *                   example: "http://localhost:3000/callbackNfe"
    *       500:
    *         description: Erro ao emitir nota fiscal
    *         content:
@@ -125,6 +218,7 @@ class NfeController {
    *                 message:
    *                   type: string
    */
+
   async emitirNotaFiscal(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -186,7 +280,6 @@ class NfeController {
       next({ message: "Erro ao consultar nota fiscal", detail: error.message });
     }
   }
-
   /**
    * @swagger
    * /nfe/cancelar/{chave}:
@@ -214,8 +307,71 @@ class NfeController {
    *         description: Nota fiscal cancelada com sucesso
    *         content:
    *           application/json:
-   *             schema:
+   *              schema:
    *               type: object
+   *               properties:
+   *                 status:
+   *                   type: string
+   *                   example: "cancelado"
+   *                 xml:
+   *                   type: string
+   *                   example: "http://nfe.seudominio.com.br/xmlnfe/[chave|uuid]/?cancelado=1"
+   *                 log:
+   *                   type: object
+   *                   properties:
+   *                     bStat:
+   *                       type: boolean
+   *                       example: true
+   *                     versao:
+   *                       type: string
+   *                       example: "4.00"
+   *                     tpAmb:
+   *                       type: string
+   *                       example: "1"
+   *                     verAplic:
+   *                       type: string
+   *                       example: "RS2405142121DR"
+   *                     cStat:
+   *                       type: string
+   *                       example: "104"
+   *                     xMotivo:
+   *                       type: string
+   *                       example: "Lote processado"
+   *                     cUF:
+   *                       type: string
+   *                       example: "43"
+   *                     dhRecbto:
+   *                       type: string
+   *                       example: "2024-08-05T13:27:30-03:00"
+   *                     tMed:
+   *                       type: string
+   *                       example: ""
+   *                     nRec:
+   *                       type: string
+   *                       example: ""
+   *                     aProt:
+   *                       type: array
+   *                       items:
+   *                         type: object
+   *                         properties:
+   *                           chNFe:
+   *                             type: string
+   *                             example: "43240830902296000105550020000000011100059922"
+   *                           dhRecbto:
+   *                             type: string
+   *                             example: "2024-08-05T13:27:30-03:00"
+   *                           nProt:
+   *                             type: string
+   *                             example: ""
+   *                           digVal:
+   *                             type: string
+   *                             example: "qUeNNit1AqMRW14WKEr6koSwDl0="
+   *                           cStat:
+   *                             type: string
+   *                             example: "245"
+   *                           xMotivo:
+   *                             type: string
+   *                             example: "Rejeicao: CNPJ Emitente nao cadastrado"
    *       500:
    *         description: Erro ao cancelar nota fiscal
    *         content:
@@ -254,6 +410,10 @@ class NfeController {
    *           application/json:
    *             schema:
    *               type: object
+   *               properties:
+   *                 expiration:
+   *                   type: number
+   *                   example: 185
    *       500:
    *         description: Erro ao verificar validade do certificado
    *         content:
@@ -289,6 +449,10 @@ class NfeController {
    *           application/json:
    *             schema:
    *               type: object
+   *               properties:
+   *                 status:
+   *                   type: string
+   *                   example: "online"
    *       500:
    *         description: Erro ao verificar status da Sefaz
    *         content:
