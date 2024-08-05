@@ -31,7 +31,7 @@ class NfeService {
 
   async consultarNotaFiscal(chave) {
     try {
-      const response = await this.api.get(`consulta/`, { chave });
+      const response = await this.api.get(`consulta/?chave=${chave}`, {});
       return response.data;
     } catch (error) {
       throw new Error(error.message);

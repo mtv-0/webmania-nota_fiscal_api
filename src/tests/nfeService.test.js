@@ -79,7 +79,7 @@ describe("NfeController", () => {
   });
 
   test("GET /nfe/status deve retornar o status da Sefaz", async () => {
-    const mockData = { status: "operacional" };
+    const mockData = { status: "online" };
     NfeService.prototype.statusSefaz.mockResolvedValue(mockData);
 
     const response = await request(app).get("/nfe/status");
