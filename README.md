@@ -31,7 +31,9 @@ src/
 ├── validators/
 │   ├── nfeValidator.js      # Validações para os endpoints de Nota Fiscal
 ├── index.js                 # Ponto de entrada da aplicação
-├── swaggerConfig.js         # Configuração do Swagger para documentar a API
+├── swagger/
+│   ├── swaggerConfig.js     # Configuração do Swagger para documentar a API
+|   ├── nfeDoc.js            # Documentação referente às notas fiscais
 test/
 ├── nfeService.test.js       # Testes unitários para o serviço de Nota Fiscal
 ```
