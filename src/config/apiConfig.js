@@ -9,5 +9,8 @@ module.exports = {
     access_token_secret: process.env.Access_Token_Secret,
     classe_imposto: process.env.Class_imposto,
     url_callback: process.env.Url_callback,
+
+    mongo_db_user: process.env.Mongo_db_user,
+    mongo_db_password: process.env.Mongo_db_password,
   },
 };

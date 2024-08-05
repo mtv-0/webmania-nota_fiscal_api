@@ -2,6 +2,8 @@ const { validationResult } = require("express-validator");
 const NfeService = require("../services/nfeService");
 const nfeService = new NfeService();
 const logger = require("../utils/logger");
+const { connectToCluster } = require("../config/mongoDb");
+const NfeDatabaseController = require("../db_services/nfe");
 
 class NfeController {
   /**
@@ -227,6 +229,10 @@ class NfeController {
     try {
       const dados = req.body;
       const resultado = await nfeService.emitirNotaFiscal(dados);
+
+      const nfeDbService = new NfeDatabaseController();
+      nfeDbService.storeNfe(resultado);
+
       logger.info("Emissão de nota fiscal realizada com sucesso", {
         dados,
         resultado,
