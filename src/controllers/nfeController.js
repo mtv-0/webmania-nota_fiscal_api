@@ -5,14 +5,14 @@ const NfeDatabaseController = require("../db_services/nfe");
 class NfeController {
   constructor() {
     this.nfeService = new NfeService();
+    this.nfeDbService = new NfeDatabaseController();
   }
   async emitirNotaFiscal(req, res, next) {
     try {
       const dados = req.body;
       const resultado = await this.nfeService.emitirNotaFiscal(dados);
 
-      const nfeDbService = new NfeDatabaseController();
-      nfeDbService.storeNfe(resultado);
+      this.nfeDbService.storeNfe(resultado);
 
       logger.info("Emissão de nota fiscal realizada com sucesso", {
         resultado,
