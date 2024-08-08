@@ -1,11 +1,9 @@
-const NfeService = require("../services/nfeService");
 const logger = require("../utils/logger");
-const NfeDatabaseController = require("../db_services/nfe");
 
 class NfeController {
-  constructor() {
-    this.nfeService = new NfeService();
-    this.nfeDbService = new NfeDatabaseController();
+  constructor(nfeService, nfeRepository) {
+    this.nfeService = nfeService;
+    this.nfeDbService = nfeRepository;
   }
   async emitirNotaFiscal(req, res, next) {
     try {
