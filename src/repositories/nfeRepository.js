@@ -1,6 +1,6 @@
 const { connectToCluster } = require("../config/mongoDb");
 
-class NfeDatabaseController {
+class NfeRepository {
   constructor() {}
 
   async storeNfe(data) {
@@ -10,4 +10,4 @@ class NfeDatabaseController {
   }
 }
 
-module.exports = NfeDatabaseController;
+module.exports = NfeRepository;

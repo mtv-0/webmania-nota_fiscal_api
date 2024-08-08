@@ -2,14 +2,17 @@ const request = require("supertest");
 const express = require("express");
 const bodyParser = require("body-parser");
 const NfeController = require("../src/controllers/nfeController");
-const NfeService = require("../src/services/nfeService");
+
+const NfeService = require("./services/nfeService");
+const NfeRepository = require("./db_services/nfe");
 
 jest.mock("../src/services/nfeService");
 
 const app = express();
 app.use(bodyParser.json());
 
-const nfeController = new NfeController();
+const nfeController = new NfeController(new NfeService(), new NfeRepository());
+
 app.post("/nfe/emissao", (req, res) =>
   nfeController.emitirNotaFiscal(req, res)
 );
