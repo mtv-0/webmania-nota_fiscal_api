@@ -28,8 +28,8 @@ src/
 |   ├── mongoDb.js           # Configuração e inicialização do mongoDB
 ├── controllers/
 │   ├── nfeController.js     # Controlador para os endpoints de Nota Fiscal
-├── db_services/
-│   ├── nfe.js        # Serviço para interagir com o banco de dados
+├── repositories/
+│   ├── nfeRepository.js        # Serviço para interagir com o banco de dados
 ├── services/
 │   ├── nfeService.js        # Serviço para interagir com a API da WebmaniaBR
 ├── utils/
